@@ -1,6 +1,23 @@
 import requests_cache, re, config
 from datetime import timedelta
 from modules import helpers, get
+import base64
+import os
+
+def get_cookie_file():
+    encoded_cookies = os.getenv("YOUTUBE_COOKIES_B64")
+
+    if not encoded_cookies:
+        return None
+
+    cookie_path = "/tmp/cookies.txt"
+
+    with open(cookie_path, "wb") as cookie_file:
+        cookie_file.write(
+            base64.b64decode(encoded_cookies)
+        )
+
+    return cookie_path
 
 # Videos expires after 5 hours, so you don't have to worry.
 session = requests_cache.CachedSession('cache/videos', expire_after=timedelta(hours=4), ignored_parameters=['key'], backend=config.backend)
