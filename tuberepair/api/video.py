@@ -27,10 +27,14 @@ def _cookie_args():
         print("YOUTUBE_COOKIES_B64 is missing", flush=True)
         return []
     try:
-        if encoded.lstrip().startswith("#"):
-            data = encoded.encode("utf-8")
-        else:
-            data = base64.b64decode(encoded)
+        data = encoded.encode("utf-8")
+        for _ in range(3):
+            if data.lstrip().startswith(b"#"):
+                break
+            data = base64.b64decode(data)
+        if not data.lstrip().startswith(b"#"):
+            print("Cookie data is not a valid cookies.txt", flush=True)
+            return []
         path = Path("/tmp/youtube-cookies.txt")
         path.write_bytes(data)
         print("Cookie file size:", path.stat().st_size, flush=True)
