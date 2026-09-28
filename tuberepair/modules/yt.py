@@ -1,6 +1,7 @@
 import requests_cache, re, config
 from datetime import timedelta
 from modules import helpers, get
+from modules import yt
 import base64
 import os
 from pathlib import Path
