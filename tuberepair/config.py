@@ -87,7 +87,7 @@ else:
 if "PORT" in OSEnv:
     PORT = OSEnv["PORT"]
 else:
-    PORT = "2000"
+    PORT = "3000"
 
 # Debug mode 
 # NOTE: recommended True if you want to fix the code and auto reload
