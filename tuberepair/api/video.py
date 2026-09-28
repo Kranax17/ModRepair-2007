@@ -2685,6 +2685,7 @@ def getvideo(video_id, res=None):
         # (some videos/formats don't pipe cleanly).
         try:
             print("TRYING PIPED YT-DLP -> FFMPEG", flush=True)
+            raise Exception("piping disabled")
 
             ytdlp_proc = subprocess.Popen([
                 "yt-dlp", *COOKIE_ARGS,
