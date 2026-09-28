@@ -58,14 +58,12 @@ def data_to_hls_url(data, res = None):
         if not match.group("codecs").startswith("avc"):
             panda[x] = ""
             panda[x+1] = ""
-            continue
         
         # reject framerates over 30
         if int(match.group("fps")) > 30:
             panda[x] = ""
             panda[x+1] = ""
-            continue
-        
+            
         if vertical is None:
             vertical = int(match.group("height")) > int(match.group("width"))
         res = 0
@@ -80,8 +78,7 @@ def data_to_hls_url(data, res = None):
         if res > wanted_resolution:
             panda[x] = ""
             panda[x+1] = ""
-            continue
-
+            
         if res > maxRes:
            maxRes = res
 
