@@ -30,6 +30,26 @@ def get_cookie_file():
         print("Could not decode YouTube cookies:", repr(error), flush=True)
         return None
 
+def pipe_video_to_ffmpeg(command, input_data=None):
+    process = subprocess.Popen(
+        command,
+        stdin=subprocess.PIPE if input_data is not None else None,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+
+    stdout_data, stderr_data = process.communicate(input=input_data)
+
+    if process.returncode != 0:
+        raise subprocess.CalledProcessError(
+            process.returncode,
+            command,
+            output=stdout_data,
+            stderr=stderr_data
+        )
+
+    return stdout_data
+
 # Videos expires after 5 hours, so you don't have to worry.
 session = requests_cache.CachedSession('cache/videos', expire_after=timedelta(hours=4), ignored_parameters=['key'], backend=config.backend)
 
