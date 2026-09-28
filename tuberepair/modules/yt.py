@@ -3,21 +3,32 @@ from datetime import timedelta
 from modules import helpers, get
 import base64
 import os
+from pathlib import Path
 
 def get_cookie_file():
-    encoded_cookies = os.getenv("YOUTUBE_COOKIES_B64")
+    encoded = os.getenv("YOUTUBE_COOKIES_B64")
 
-    if not encoded_cookies:
+    if not encoded:
+        print("YOUTUBE_COOKIES_B64 is missing", flush=True)
         return None
 
-    cookie_path = "/tmp/cookies.txt"
+    try:
+        cookie_path = Path("/tmp/youtube-cookies.txt")
+        cookie_path.write_bytes(base64.b64decode(encoded))
 
-    with open(cookie_path, "wb") as cookie_file:
-        cookie_file.write(
-            base64.b64decode(encoded_cookies)
+        print(
+            "Cookie file exists:",
+            cookie_path.exists(),
+            "size:",
+            cookie_path.stat().st_size,
+            flush=True
         )
 
-    return cookie_path
+        return str(cookie_path)
+
+    except Exception as error:
+        print("Could not decode YouTube cookies:", repr(error), flush=True)
+        return None
 
 # Videos expires after 5 hours, so you don't have to worry.
 session = requests_cache.CachedSession('cache/videos', expire_after=timedelta(hours=4), ignored_parameters=['key'], backend=config.backend)
