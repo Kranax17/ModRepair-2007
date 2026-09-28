@@ -8,7 +8,7 @@ from waitress import serve
 import shutil
 import subprocess
 
-print("FFmpeg path:", shutil.which("ffmpeg"), flush=True)
+print("FFmpeg:", shutil.which("ffmpeg"), flush=True)
 
 subprocess.run(
     ["ffmpeg", "-version"],
