@@ -17,6 +17,25 @@ import time
 import threading
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import base64, os
+from pathlib import Path
+
+def _cookie_args():
+    src = Path("/etc/secrets/YOUTUBE_COOKIES_B64")
+    encoded = src.read_text().strip() if src.exists() else os.getenv("YOUTUBE_COOKIES_B64")
+    if not encoded:
+        print("YOUTUBE_COOKIES_B64 is missing", flush=True)
+        return []
+    try:
+        path = Path("/tmp/youtube-cookies.txt")
+        path.write_bytes(base64.b64decode(encoded))
+        print("Cookie file size:", path.stat().st_size, flush=True)
+        return ["--cookies", str(path)]
+    except Exception as e:
+        print("Could not decode YouTube cookies:", repr(e), flush=True)
+        return []
+
+COOKIE_ARGS = _cookie_args()
 
 video = Blueprint("video", __name__)
 
