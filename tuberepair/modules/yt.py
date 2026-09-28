@@ -41,29 +41,19 @@ def data_to_hls_url(data, res = None):
         # dude
         if not match:
             continue
-            
-    codecs = match.group("codecs").lower()
-
-    # Original iPhone/iPhone OS compatibility:
-    # H.264 Baseline, AAC audio, no VP9/AV1/HEVC.
-    if not codecs.startswith("avc1."):
-        panda[x] = ""
-        panda[x + 1] = ""
-
-    if "mp4a.40.2" not in codecs:
-        panda[x] = ""
-        panda[x + 1] = ""
-
+        
         # continue if codecs is not compatible (or matched?)
         if not match.group("codecs").startswith("avc"):
             panda[x] = ""
             panda[x+1] = ""
+            continue
         
         # reject framerates over 30
         if int(match.group("fps")) > 30:
             panda[x] = ""
             panda[x+1] = ""
-            
+            continue
+        
         if vertical is None:
             vertical = int(match.group("height")) > int(match.group("width"))
         res = 0
@@ -78,7 +68,8 @@ def data_to_hls_url(data, res = None):
         if res > wanted_resolution:
             panda[x] = ""
             panda[x+1] = ""
-            
+            continue
+
         if res > maxRes:
            maxRes = res
 
