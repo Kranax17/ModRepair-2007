@@ -49,12 +49,10 @@ def data_to_hls_url(data, res = None):
     if not codecs.startswith("avc1."):
         panda[x] = ""
         panda[x + 1] = ""
-        continue
 
     if "mp4a.40.2" not in codecs:
         panda[x] = ""
         panda[x + 1] = ""
-        continue
 
         # continue if codecs is not compatible (or matched?)
         if not match.group("codecs").startswith("avc"):
