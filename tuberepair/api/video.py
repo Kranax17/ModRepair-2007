@@ -28,7 +28,7 @@ def _cookie_args():
         return []
     try:
         path = Path("/tmp/youtube-cookies.txt")
-        path.write_bytes(base64.b64decode(encoded))
+        path.write_bytes(data)
         print("Cookie file size:", path.stat().st_size, flush=True)
         return ["--cookies", str(path)]
     except Exception as e:
