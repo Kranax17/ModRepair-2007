@@ -7,7 +7,11 @@ import os
 from pathlib import Path
 
 def get_cookie_file():
-    encoded = os.getenv("YOUTUBE_COOKIES_B64")
+    secret_path = Path("/etc/secrets/YOUTUBE_COOKIES_B64")
+    if secret_path.exists():
+        encoded = secret_path.read_text().strip()
+    else:
+        encoded = os.getenv("YOUTUBE_COOKIES_B64")
 
     if not encoded:
         print("YOUTUBE_COOKIES_B64 is missing", flush=True)
