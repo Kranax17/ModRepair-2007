@@ -352,7 +352,7 @@ def fetch_ytdlp_metadata(video_id):
         for extra_args in clients:
             result = subprocess.run(
                 [
-                    "yt-dlp",
+                    "yt-dlp", *COOKIE_ARGS,
                     *extra_args,
                     "--dump-json",
                     "--no-playlist",
@@ -1760,7 +1760,7 @@ def get_most_viewed_from_playlist():
 
         result = subprocess.run(
             [
-                "yt-dlp",
+                "yt-dlp", *COOKIE_ARGS,
                 "--dump-json",
                 "--ignore-errors",
                 "--no-warnings",
@@ -2630,7 +2630,7 @@ def getvideo(video_id, res=None):
 
         # -------- STEP 1: TRY INSTANT STREAM --------
         '''result = subprocess.run(
-            ["yt-dlp", "-j", "-f", "36/18/17", "--no-playlist", url],
+            ["yt-dlp", *COOKIE_ARGS, "-j", "-f", "36/18/17", "--no-playlist", url],
             capture_output=True,
             text=True
         )
@@ -2678,7 +2678,7 @@ def getvideo(video_id, res=None):
             print("TRYING PIPED YT-DLP -> FFMPEG", flush=True)
 
             ytdlp_proc = subprocess.Popen([
-                "yt-dlp",
+                "yt-dlp", *COOKIE_ARGS,
                 "--extractor-args", "youtube:player_client=android",
                 "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                 "--no-playlist",
@@ -2735,7 +2735,7 @@ def getvideo(video_id, res=None):
                 print("TRYING NORMAL YT-DLP")
 
                 subprocess.run([
-                    "yt-dlp",
+                    "yt-dlp", *COOKIE_ARGS,
                     "--extractor-args", "youtube:player_client=android",
                     "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                     "--no-playlist",
@@ -2750,7 +2750,7 @@ def getvideo(video_id, res=None):
                 print("NORMAL FAILED, TRYING ANDROID")
 
                 subprocess.run([
-                    "yt-dlp",
+                    "yt-dlp", *COOKIE_ARGS,
                     "--extractor-args", "youtube:player_client=android",
                     "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                     "--no-playlist",
