@@ -4,7 +4,6 @@ WORKDIR /tuberepair-python
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        wget \
         ffmpeg \
         ca-certificates && \
     apt-get clean && \
