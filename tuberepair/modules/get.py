@@ -33,10 +33,12 @@ def convert_with_mili(str):
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 
-TEMPLATE_DIR = Path(__file__).resolve().parent.parent / "templates"
-
-env = Environment(
-    loader=FileSystemLoader(str(TEMPLATE_DIR))
+print("Template directory:", TEMPLATE_DIR, flush=True)
+print("Template directory exists:", TEMPLATE_DIR.exists(), flush=True)
+print(
+    "Search template exists:",
+    (TEMPLATE_DIR / "classic" / "search.jinja2").exists(),
+    flush=True
 )
 
 # simplify requests
