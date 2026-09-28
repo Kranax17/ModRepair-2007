@@ -6,7 +6,7 @@ from modules import helpers, get
 session = requests_cache.CachedSession('cache/videos', expire_after=timedelta(hours=4), ignored_parameters=['key'], backend=config.backend)
 
 # hard-coded API Key, from youtube's private API
-api_key = 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
+api_key = 'AIzaSyASuHVtSwuNDc27gHN5qAVO6AvG1HrOKoY'
 
 # Get HLS URL via innertube and fetch the file, then filter to fix low quality playback error
 # Much thanks for SpaceSaver.
@@ -43,7 +43,7 @@ def data_to_hls_url(data, res = None):
             continue
         
         # continue if codecs is not compatible (or matched?)
-        if not match.group("codecs").startswith("avc"):
+        if not match.group("codecs").startswith("avc1"):
             panda[x] = ""
             panda[x+1] = ""
             continue
