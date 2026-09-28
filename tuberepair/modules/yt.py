@@ -41,7 +41,21 @@ def data_to_hls_url(data, res = None):
         # dude
         if not match:
             continue
-        
+            
+    codecs = match.group("codecs").lower()
+
+    # Original iPhone/iPhone OS compatibility:
+    # H.264 Baseline, AAC audio, no VP9/AV1/HEVC.
+    if not codecs.startswith("avc1."):
+        panda[x] = ""
+        panda[x + 1] = ""
+        continue
+
+    if "mp4a.40.2" not in codecs:
+        panda[x] = ""
+        panda[x + 1] = ""
+        continue
+
         # continue if codecs is not compatible (or matched?)
         if not match.group("codecs").startswith("avc"):
             panda[x] = ""
