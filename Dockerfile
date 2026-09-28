@@ -10,8 +10,8 @@ RUN mv allow-cf.conf proxy.conf /etc/nginx/conf.d/
 ######################
 
 FROM debian:stable
-ARG TUBEREPAIR_USER_UID="2000"
-ARG TUBEREPAIR_USER_GID="2000"
+ARG TUBEREPAIR_USER_UID="1000"
+ARG TUBEREPAIR_USER_GID="1000"
 EXPOSE 80
 EXPOSE 443
 LABEL NAME="TubeRepair tuberepair.uptimetrackers.com blueprint"
