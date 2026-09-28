@@ -1,0 +1,11 @@
+Flask
+Flask-CacheControl
+Flask-Compress
+Jinja2
+requests-cache
+requests
+waitress
+requests[socks]
+redis
+yt-dlp>=2026.08.06
+ffmpeg
