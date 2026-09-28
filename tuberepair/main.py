@@ -5,6 +5,15 @@ from flask_compress import Compress
 import config
 print("USING CLIENT ID:", config.GOOGLE_CLIENT_ID, flush=True)
 from waitress import serve
+import shutil
+import subprocess
+
+print("FFmpeg path:", shutil.which("ffmpeg"), flush=True)
+
+subprocess.run(
+    ["ffmpeg", "-version"],
+    check=False
+)
 
 # seperated apis
 from api.static import static
