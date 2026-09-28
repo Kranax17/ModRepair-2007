@@ -1,40 +1,18 @@
-FROM nginxproxy/nginx-proxy:alpine AS cf-proxy
-
-COPY cloudflare-ips-conf.sh proxy.conf ./
-RUN chmod +x cloudflare-ips-conf.sh && ./cloudflare-ips-conf.sh
-RUN mv allow-cf.conf proxy.conf /etc/nginx/conf.d/
-
-
-######################
-#     TUBEREPAIR     #
-######################
-
-FROM debian:stable
-ARG TUBEREPAIR_USER_UID="1000"
-ARG TUBEREPAIR_USER_GID="1000"
-EXPOSE 80
-EXPOSE 443
-LABEL NAME="TubeRepair tuberepair.uptimetrackers.com blueprint"
-LABEL VERSION="0.1 Beta"
-
-COPY --chown=${TUBEREPAIR_USER_UID}:${TUBEREPAIR_USER_GID} ./requirements.txt /tuberepair-python/
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        python3 \
-        python3-pip \
-        wget \
-        ffmpeg \
-        ca-certificates && \
-    cd /tuberepair-python && \
-    pip3 install -r requirements.txt --break-system-packages && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-COPY --chown=${TUBEREPAIR_USER_UID}:${TUBEREPAIR_USER_GID} ./tuberepair /tuberepair-python
+FROM python:3.11-slim
 
 WORKDIR /tuberepair-python
 
-USER tuberepair
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        wget \
+        ffmpeg \
+        ca-certificates && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["python3", "main.py"]
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["python", "main.py"]
