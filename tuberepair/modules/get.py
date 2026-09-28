@@ -30,7 +30,14 @@ def convert_with_mili(str):
     return tostring_with_mili(dt)
 
 # jinja2 path
-env = Environment(loader=FileSystemLoader('templates'))
+from pathlib import Path
+from jinja2 import Environment, FileSystemLoader
+
+TEMPLATE_DIR = Path(__file__).resolve().parent.parent / "templates"
+
+env = Environment(
+    loader=FileSystemLoader(str(TEMPLATE_DIR))
+)
 
 # simplify requests
 def fetch(url):
