@@ -27,6 +27,10 @@ def _cookie_args():
         print("YOUTUBE_COOKIES_B64 is missing", flush=True)
         return []
     try:
+        if encoded.lstrip().startswith("#"):
+            data = encoded.encode("utf-8")
+        else:
+            data = base64.b64decode(encoded)
         path = Path("/tmp/youtube-cookies.txt")
         path.write_bytes(data)
         print("Cookie file size:", path.stat().st_size, flush=True)
@@ -36,6 +40,7 @@ def _cookie_args():
         return []
 
 COOKIE_ARGS = _cookie_args()
+os.makedirs("static", exist_ok=True)
 
 video = Blueprint("video", __name__)
 
@@ -1858,7 +1863,7 @@ def most_viewed(res=''):
 def cleanup_old_files():
     folder = "static"
     max_age = 600  # seconds (10 minutes)
-
+    os.makedirs("static", exist_ok=True)
     while True:
         now = time.time()
 
