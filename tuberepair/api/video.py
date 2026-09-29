@@ -2742,18 +2742,16 @@ def getvideo(video_id, res=None):
 
             # Download
             try:
-                print("TRYING NORMAL YT-DLP")
+                print("TRYING YT-DLP DOWNLOAD", flush=True)
 
-                subprocess.run([
-                    "yt-dlp", *COOKIE_ARGS,
-                    "--extractor-args", "youtube:player_client=android",
-                    "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
-                    "--no-playlist",
-                    "--no-warnings",
-                    "-o", temp_input,
-                    url
-                ],
-                check=True)
+            subprocess.run([
+                "yt-dlp", *COOKIE_ARGS,
+                "-f", "bv*[height<=360]+ba/b[height<=360]/b",
+                "--merge-output-format", "mp4",
+                "--no-playlist", "--no-warnings",
+                "-o", temp_input,
+                url
+            ], check=True)
 
             except subprocess.CalledProcessError as e:
 
