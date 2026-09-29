@@ -59,7 +59,7 @@ else:
 if "HLS_RESOLUTION" in OSEnv:
     HLS_RESOLUTION = int(OSEnv["HLS_RESOLUTION"])
 else:
-    HLS_RESOLUTION = 144
+    HLS_RESOLUTION = 240
 
 # Set indivious instance
 # NOTE: for info fetching only right now.
@@ -68,7 +68,7 @@ else:
 if "URL" in OSEnv:
     URL = OSEnv["URL"]
 else:
-    URL = "https://invidious.f5.si"
+    URL = "http://invidious-latest-nni3.onrender.com"
 
 # Max res to allow users
 # Mainly to stop converting long numbers to strings.
