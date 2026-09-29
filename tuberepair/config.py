@@ -68,7 +68,7 @@ else:
 if "URL" in OSEnv:
     URL = OSEnv["URL"]
 else:
-    URL = "http://invidious-latest-nni3.onrender.com"
+    URL = "https://invidious-latest-nni3.onrender.com"
 
 # Max res to allow users
 # Mainly to stop converting long numbers to strings.
