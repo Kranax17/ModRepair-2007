@@ -68,7 +68,7 @@ else:
 if "URL" in OSEnv:
     URL = OSEnv["URL"]
 else:
-    URL = "http://invidious.f5.si"
+    URL = "http://invidious.tiekoetter.com"
 
 # Max res to allow users
 # Mainly to stop converting long numbers to strings.
