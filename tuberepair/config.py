@@ -68,7 +68,7 @@ else:
 if "URL" in OSEnv:
     URL = OSEnv["URL"]
 else:
-    URL = "http://invidious.f5.si"
+    URL = "https://syndrome-genealogy-specifies-customise.trycloudflare.com"
 
 # Max res to allow users
 # Mainly to stop converting long numbers to strings.
