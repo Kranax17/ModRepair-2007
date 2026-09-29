@@ -2750,12 +2750,8 @@ def getvideo(video_id, res=None):
                 "-o", temp_input,
                 url
             ], check=True)
-
-            print("START FFMPEG")
-
-            except subprocess.CalledProcessError as e:
-
-            print("START FFMPEG")
+            
+           print("START FFMPEG")
             t3 = time.time()
 
             # Try hardware-accelerated encoding first — software libx264
