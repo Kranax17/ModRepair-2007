@@ -22,7 +22,7 @@ from pathlib import Path
 
 def _cookie_args():
     if os.getenv("USE_YT_COOKIES") != "1":
-    return []
+        return []
     src = Path("/etc/secrets/YOUTUBE_COOKIES_B64")
     encoded = src.read_text().strip() if src.exists() else os.getenv("YOUTUBE_COOKIES_B64")
     if not encoded:
