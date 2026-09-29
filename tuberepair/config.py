@@ -59,7 +59,7 @@ else:
 if "HLS_RESOLUTION" in OSEnv:
     HLS_RESOLUTION = int(OSEnv["HLS_RESOLUTION"])
 else:
-    HLS_RESOLUTION = 240
+    HLS_RESOLUTION = 144
 
 # Set indivious instance
 # NOTE: for info fetching only right now.
