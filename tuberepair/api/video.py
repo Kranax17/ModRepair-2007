@@ -37,7 +37,7 @@ def _cookie_args():
         if not data.lstrip().startswith(b"#"):
             print("Cookie data is not a valid cookies.txt", flush=True)
             return []
-        path = Path("/tmp/youtube-cookies.txt")
+        path = Path("/tmp/youtube_cookies.txt")
         path.write_bytes(data)
         print("Cookie file size:", path.stat().st_size, flush=True)
         return ["--cookies", str(path)]
