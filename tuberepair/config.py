@@ -46,7 +46,7 @@ else:
 if "MEDIUM_QUALITY" in OSEnv:
     MEDIUM_QUALITY = helpers.string_to_bool(OSEnv["MEDIUM_QUALITY"])
 else:
-    MEDIUM_QUALITY = False
+    MEDIUM_QUALITY = True
 
 if "GET_ERROR_LOGGING" in OSEnv:
     GET_ERROR_LOGGING = helpers.string_to_bool(OSEnv["GET_ERROR_LOGGING"])
@@ -67,7 +67,7 @@ else:
 if "URL" in OSEnv:
     URL = OSEnv["URL"]
 else:
-    URL = "https://invidious-latest-nni3.onrender.com"
+    URL = "http://invidious-latest-nni3.onrender.com"
 
 # Max res to allow users
 # Mainly to stop converting long numbers to strings.
