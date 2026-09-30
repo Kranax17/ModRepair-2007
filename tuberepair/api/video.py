@@ -355,7 +355,7 @@ def fetch_ytdlp_metadata(video_id):
     try:
         clients = [
             [],
-            ["--extractor-args", "youtube:player_client=tv_simply"]
+            ["--extractor-args", "youtube:player_client=tv_simply,android_vr,web_safari"]
         ]
 
         info = None
@@ -2691,7 +2691,7 @@ def getvideo(video_id, res=None):
 
             ytdlp_proc = subprocess.Popen([
                 "yt-dlp", *COOKIE_ARGS,
-                "--extractor-args", "youtube:player_client=tv_simply",
+                "--extractor-args", "youtube:player_client=tv_simply,android_vr,web_safari",
                 "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                 "--no-playlist",
                 "--no-warnings",
