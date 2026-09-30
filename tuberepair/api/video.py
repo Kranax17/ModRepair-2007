@@ -2742,16 +2742,34 @@ def getvideo(video_id, res=None):
         if not piped_success:
             print("FALLING BACK TO DISK-BASED DOWNLOAD+CONVERT", flush=True)
             
-            # Download
             print("TRYING YT-DLP DOWNLOAD", flush=True)
-            subprocess.run([
-                "yt-dlp", *COOKIE_ARGS,
-                "-f", "bv*[height<=360]+ba/b[height<=360]/b",
-                "--merge-output-format", "mp4",
-                "--no-playlist", "--no-warnings",
-                "-o", temp_input,
-                url
-            ], check=True)
+            # Cookie-less clients first: tv_simply and android_vr ignore
+            # cookies, and yt-dlp skips them entirely if a cookie file is
+            # passed. Default clients with cookies are the fallback.
+            download_attempts = [
+                ["--extractor-args", "youtube:player_client=tv_simply,android_vr,web_safari"],
+                [*COOKIE_ARGS],
+            ]
+            downloaded = False
+            for attempt_args in download_attempts:
+                if os.path.exists(temp_input):
+                    os.remove(temp_input)
+                dl = subprocess.run([
+                    "yt-dlp",
+                    *attempt_args,
+                    "-f", "bv*[height<=360]+ba/b[height<=360]/b",
+                    "--merge-output-format", "mp4",
+                    "--no-playlist", "--no-warnings",
+                    "-o", temp_input,
+                    url
+                ], capture_output=True, text=True)
+                if dl.returncode == 0 and os.path.exists(temp_input):
+                    print("YT-DLP DOWNLOAD OK WITH:", attempt_args or "default", flush=True)
+                    downloaded = True
+                    break
+                print("YT-DLP DOWNLOAD FAILED WITH:", attempt_args or "default", dl.stderr[-500:], flush=True)
+            if not downloaded:
+                raise Exception("yt-dlp could not download " + video_id)
             
             print("START FFMPEG")
             t3 = time.time()
