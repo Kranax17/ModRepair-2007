@@ -11,7 +11,8 @@ RUN apt-get update && \
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+RUN yt-dlp --version
 
 COPY . .
 
-CMD ["python", "tuberepair/main.py"]
+CMD ["sh", "-c", "pip install --no-cache-dir -U 'yt-dlp[default]' && python tuberepair/main.py"]
