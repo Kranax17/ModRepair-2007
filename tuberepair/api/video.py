@@ -367,7 +367,6 @@ def fetch_ytdlp_metadata(video_id):
                     *extra_args,
                     "--dump-json",
                     "--no-playlist",
-                    "--no-warnings",
                     f"https://www.youtube.com/watch?v={video_id}"
                 ],
                 capture_output=True,
@@ -2767,7 +2766,7 @@ def getvideo(video_id, res=None):
                     print("YT-DLP DOWNLOAD OK WITH:", attempt_args or "default", flush=True)
                     downloaded = True
                     break
-                print("YT-DLP DOWNLOAD FAILED WITH:", attempt_args or "default", dl.stderr[-500:], flush=True)
+                print("YT-DLP DOWNLOAD FAILED WITH:", attempt_args or "default", dl.stderr[-2000:], flush=True)
             if not downloaded:
                 raise Exception("yt-dlp could not download " + video_id)
             
