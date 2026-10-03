@@ -355,7 +355,7 @@ def fetch_ytdlp_metadata(video_id):
     try:
         clients = [
             [],
-            ["--extractor-args", "youtube:player_client=tv_simply,android_vr,web_safari"]
+            ["--extractor-args", "youtube:player_client=mweb,ios"]
         ]
 
         info = None
