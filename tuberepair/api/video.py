@@ -355,7 +355,7 @@ def fetch_ytdlp_metadata(video_id):
     try:
         clients = [
             [],
-            ["--extractor-args", "youtube:player_client=mweb,ios"]
+        ["--extractor-args", "youtube:player_client=mweb,ios"],
         ]
 
         info = None
@@ -2690,7 +2690,8 @@ def getvideo(video_id, res=None):
 
             ytdlp_proc = subprocess.Popen([
                 "yt-dlp", *COOKIE_ARGS,
-                "--extractor-args", "youtube:player_client=tv_simply,android_vr,web_safari",
+                ["--extractor-args", "youtube:player_client=mweb,ios"],
+
                 "-f", "worstvideo[height>=144]+bestaudio/worst[height>=144]",
                 "--no-playlist",
                 "--no-warnings",
@@ -2746,7 +2747,7 @@ def getvideo(video_id, res=None):
             # cookies, and yt-dlp skips them entirely if a cookie file is
             # passed. Default clients with cookies are the fallback.
             download_attempts = [
-                ["--extractor-args", "youtube:player_client=tv_simply,android_vr,web_safari"],
+                ["--extractor-args", "youtube:player_client=mweb,ios"],
                 [*COOKIE_ARGS],
             ]
             downloaded = False
